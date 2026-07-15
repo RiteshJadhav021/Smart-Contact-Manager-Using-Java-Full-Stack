@@ -3,6 +3,7 @@ package com.contact_project.Smart.Contact.Manager.controller;
 import com.contact_project.Smart.Contact.Manager.entity.Contacts;
 import com.contact_project.Smart.Contact.Manager.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,9 @@ public class ContactController {
     }
 
     @PostMapping("/contacts")
-    public Contacts addContacts(@RequestBody Contacts contacts){
-        return this.contactService.addContacts(contacts);
+    public Contacts addContacts(@RequestBody Contacts contacts, Authentication authentication){
+        String email = authentication.getName();
+
+        return contactService.addContacts(contacts, email);
     }
 }
