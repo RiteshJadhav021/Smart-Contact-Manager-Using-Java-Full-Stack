@@ -39,5 +39,9 @@ public class UserService {
         return this.userRepo.save(user);
     }
 
+    public User getUserByEmail(String email){
+        return userRepo.findByEmail(email).orElse(null);
+    }
+
 
 }

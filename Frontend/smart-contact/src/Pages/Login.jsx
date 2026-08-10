@@ -53,6 +53,7 @@ export const Login = () => {
         //     email:"",
         //     password:""
         // });
+        localStorage.setItem("token", response.data.token);
          navigate("/userdashboard");
 
 
@@ -129,13 +130,13 @@ export const Login = () => {
                     {/* Button */}
                     <button
                         type="submit"
-                        className="w-full rounded-lg bg-[#000000] py-3 font-semibold text-white transition hover:bg-[#000000] hover:shadow-md"
+                        className="w-full rounded-lg bg-[#000000] py-3 font-semibold text-white transition hover:bg-[#000000] hover:shadow-md cursor-pointer"
                     >
                         Login
                     </button>
                     <div className="info">
                         <h3 className="text-sm text-gray-500 text-center mt-4">
-                            Don't have an account? <Link to="/signup" className="text-[#483AEA] hover:underline">Signup</Link>
+                            Don't have an account? <Link to="/signup" className="text-[#483AEA] cursor-pointer hover:underline">Signup</Link>
                         </h3>
                     </div>
 

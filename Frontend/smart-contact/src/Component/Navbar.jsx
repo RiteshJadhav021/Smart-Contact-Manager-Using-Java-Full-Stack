@@ -15,8 +15,8 @@ export const Navbar=()=>{
                     <li><a href="/" className="hover:text-black hover:underline hover:underline-offset-4 transition-all duration-300 cursor-pointer">Contact</a></li>
                 </div>
                 <div className="nav_btn flex gap-5">
-                    <button className="login_btn text-[#6B7280]">Login</button>
-                  <Link to="/signup">  <button className="signup_btn bg-[#483AEA] text-white px-4 py-2 rounded cursor-pointer">Get Started</button></Link>
+                   <Link to="/login" className="flex items-center "> <button className="login_btn text-[#6B7280] cursor-pointer hover:text-black">Login</button></Link>
+                  <Link to="/signup">  <button className="signup_btn bg-[#483AEA] text-white px-4 py-2 rounded cursor-pointer hover:bg-[#3a2db8]">Get Started</button></Link>
                 </div>
             </ul>
         </nav>

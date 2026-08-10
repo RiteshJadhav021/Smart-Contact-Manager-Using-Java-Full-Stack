@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -25,5 +26,13 @@ public class UserController {
     @PostMapping("/users")
     public User addUser(@Valid @RequestBody UserDto userDto){
         return this.userService.addUser(userDto);
+    }
+
+    @GetMapping("/users/me")
+    public User getCurrentUser(Authentication authentication) {
+
+        String email = authentication.getName();
+
+        return userService.getUserByEmail(email);
     }
 }

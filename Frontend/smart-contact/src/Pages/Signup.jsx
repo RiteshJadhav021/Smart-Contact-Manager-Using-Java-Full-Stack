@@ -72,7 +72,7 @@ export const Signup = () => {
         password: ""
     });
 
-    navigate("/userdashboard");
+    navigate("/login");
 
 
     }
@@ -166,13 +166,13 @@ export const Signup = () => {
                     {/* Button */}
                     <button
                         type="submit"
-                        className="w-full rounded-lg bg-[#483AEA] py-3 font-semibold text-white transition hover:bg-[#392bc9] hover:shadow-md"
+                        className="w-full rounded-lg bg-[#483AEA] py-3 font-semibold text-white transition hover:bg-[#392bc9] hover:shadow-md cursor-pointer"
                     >
                         Sign Up
                     </button>
                     <div className="info">
                         <h3 className="text-sm text-gray-500 text-center mt-4">
-                            Already have an account? <Link to="/login" className="text-[#483AEA] hover:underline">Login</Link>
+                            Already have an account? <Link to="/login" className="text-[#483AEA] cursor-pointer hover:underline">Login</Link>
                         </h3>
                     </div>
 
