@@ -13,8 +13,10 @@ public class Contacts {
     private String email;
     private String phone;
     private String address;
-    @Column(length = 1000)
-    private String about;
+
+    private String company;
+
+    private String tag;
     @ManyToOne()
     @JoinColumn(name = "user_id")
     @JsonBackReference
@@ -63,12 +65,20 @@ public class Contacts {
         this.address = address;
     }
 
-    public String getAbout() {
-        return about;
+    public String getCompany() {
+        return company;
     }
 
-    public void setAbout(String about) {
-        this.about = about;
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public User getUser() {
