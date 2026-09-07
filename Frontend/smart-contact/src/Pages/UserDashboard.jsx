@@ -16,6 +16,16 @@ export const UserDashboard = () => {
     // Temporary contact data
     const [contacts,setContacts] = useState([]);
 
+
+const handleContactDeleted = (id) => {
+
+    setContacts((prevContacts) =>
+        prevContacts.filter((contact) => contact.id !== id)
+    );
+
+    setSelectedContact(null);
+};
+
     const handleContactAdded=(newContact)=>{
         setContacts((prev)=>[
             ...prev,
@@ -85,6 +95,8 @@ export const UserDashboard = () => {
                 {/* Contact details */}
                 <ContactDetails
                     contact={selectedContact}
+                     selectedContact={selectedContact}
+                    onContactDeleted={handleContactDeleted}
                 />
 
 

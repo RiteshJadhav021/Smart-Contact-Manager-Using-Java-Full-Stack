@@ -5,10 +5,94 @@ import {
     FiUsers,
     FiStar,
     FiEdit,
-    FiMoreHorizontal
-} from "react-icons/fi";
 
-export const ContactDetails = ({ contact }) => {
+} from "react-icons/fi";
+import { MdDeleteForever } from "react-icons/md";
+import { toast } from "react-toastify";
+import axios from "axios";
+
+export const ContactDetails = ({ contact, selectedContact,
+    onContactDeleted }) => {
+
+
+
+
+    const handleDeleteContact = () => {
+
+        toast(
+            ({ closeToast }) => (
+                <div>
+                    <p className="font-semibold text-gray-800">
+                        Are you sure you want to delete this contact?
+                    </p>
+
+                    <div className="flex gap-2 mt-3">
+
+                        <button
+                            onClick={() => {
+                                closeToast();
+                                deleteContact();
+                            }}
+                            className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
+                        >
+                            Yes
+                        </button>
+
+                        <button
+                            onClick={closeToast}
+                            className="bg-gray-300 text-gray-800 px-3 py-1 rounded-md hover:bg-gray-400"
+                        >
+                            No
+                        </button>
+
+                    </div>
+                </div>
+            ),
+            {
+                autoClose: false,
+                closeOnClick: false,
+            }
+        );
+    };
+
+
+    const deleteContact = async () => {
+
+        try {
+
+            const token = localStorage.getItem("token");
+
+            await axios.delete(
+                `http://localhost:8080/contacts/${selectedContact.id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            toast.success("Contact deleted successfully!");
+
+            onContactDeleted(selectedContact.id);
+
+        } catch (error) {
+
+            console.log(error);
+
+            toast.error("Failed to delete contact!");
+
+        
+        }
+    };
+
+
+
+
+
+
+
+
+  
 
     if (!contact) {
 
@@ -80,9 +164,9 @@ export const ContactDetails = ({ contact }) => {
 
                     </button>
 
-                    <button className="w-11 h-11 border border-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-50">
+                    <button className="w-11 h-11 border border-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-50" onClick={() => handleDeleteContact(selectedContact.id)}>
 
-                        <FiMoreHorizontal />
+                       <MdDeleteForever className="w-10 h-8" cursor="pointer" />
 
                     </button>
 
