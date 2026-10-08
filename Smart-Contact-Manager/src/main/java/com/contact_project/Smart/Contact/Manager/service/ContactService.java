@@ -38,6 +38,32 @@ public class ContactService {
         contactRepo.deleteById(id);
     }
 
+    public Contacts toggleFavourite(int id, User user) {
+
+        Contacts contact = contactRepo.findByIdAndUser(id, user)
+                .orElseThrow(() -> new RuntimeException("Contact not found"));
+
+        contact.setFavourite(!contact.isFavourite());
+
+        return contactRepo.save(contact);
+    }
+
+    public Contacts updateContact(int id, Contacts updatedContact, User user) {
+
+        Contacts existingContact = contactRepo
+                .findByIdAndUser(id, user)
+                .orElseThrow(() -> new RuntimeException("Contact not found"));
+
+        existingContact.setName(updatedContact.getName());
+        existingContact.setEmail(updatedContact.getEmail());
+        existingContact.setPhone(updatedContact.getPhone());
+        existingContact.setAddress(updatedContact.getAddress());
+        existingContact.setCompany(updatedContact.getCompany());
+        existingContact.setTag(updatedContact.getTag());
+
+        return contactRepo.save(existingContact);
+    }
+
 
 
 }

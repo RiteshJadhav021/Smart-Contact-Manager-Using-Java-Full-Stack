@@ -17,6 +17,10 @@ public class Contacts {
     private String company;
 
     private String tag;
+
+    private boolean isFavourite=false;
+
+
     @ManyToOne()
     @JoinColumn(name = "user_id")
     @JsonBackReference
@@ -86,6 +90,15 @@ public class Contacts {
     }
 
     public void setUser(User user) {
+
         this.user = user;
+    }
+
+    public boolean isFavourite() {
+        return isFavourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        isFavourite = favourite;
     }
 }

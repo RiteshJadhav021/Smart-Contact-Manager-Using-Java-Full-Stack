@@ -10,9 +10,19 @@ import {
 import { MdDeleteForever } from "react-icons/md";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { FaStar } from "react-icons/fa6";
+import { GoTrash } from "react-icons/go";
+
+import { useState } from "react";
+import { EditContactModal } from "./EditContactModal";
+
 
 export const ContactDetails = ({ contact, selectedContact,
-    onContactDeleted }) => {
+    onContactDeleted, onFavouriteUpdate, onContactUpdated }) => {
+
+    const [showEditModal, setShowEditModal] = useState(false);
+
+   
 
 
 
@@ -81,7 +91,7 @@ export const ContactDetails = ({ contact, selectedContact,
 
             toast.error("Failed to delete contact!");
 
-        
+
         }
     };
 
@@ -92,7 +102,7 @@ export const ContactDetails = ({ contact, selectedContact,
 
 
 
-  
+
 
     if (!contact) {
 
@@ -106,6 +116,28 @@ export const ContactDetails = ({ contact, selectedContact,
             </div>
         );
 
+    }
+
+    const handleFavourite = async () => {
+
+        try {
+            const token = localStorage.getItem("token");
+            const response = await axios.put(
+                `http://localhost:8080/contacts/${selectedContact.id}/favourite`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+            onFavouriteUpdate(response.data);
+            console.log("Favourite status updated:", response.data);
+
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -152,13 +184,13 @@ export const ContactDetails = ({ contact, selectedContact,
                 {/* Action buttons */}
                 <div className="flex gap-3">
 
-                    <button className="w-11 h-11 border border-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-50">
+                    <button className="w-11 h-11 border border-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-50" onClick={handleFavourite}>
 
-                        <FiStar />
+                        {selectedContact.favourite ? <FaStar className="text-yellow-500 fill-yellow-500" /> : <FiStar />}
 
                     </button>
 
-                    <button className="w-11 h-11 border border-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-50">
+                    <button className="w-11 h-11 border border-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-50" onClick={() => setShowEditModal(true)}>
 
                         <FiEdit />
 
@@ -166,7 +198,7 @@ export const ContactDetails = ({ contact, selectedContact,
 
                     <button className="w-11 h-11 border border-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-50" onClick={() => handleDeleteContact(selectedContact.id)}>
 
-                       <MdDeleteForever className="w-10 h-8" cursor="pointer" />
+                        <GoTrash />
 
                     </button>
 
@@ -258,6 +290,16 @@ export const ContactDetails = ({ contact, selectedContact,
                 </div>
 
             </div>
+
+             {
+        showEditModal && (
+            <EditContactModal
+                contact={selectedContact}
+                onClose={() => setShowEditModal(false)}
+                onContactUpdated={onContactUpdated}
+            />
+        )
+    }
 
         </div>
     );

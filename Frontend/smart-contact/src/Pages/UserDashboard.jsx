@@ -6,6 +6,7 @@ import { ContactList } from "../Component/userDashboardComponent/ContactList";
 import { ContactDetails } from "../Component/userDashboardComponent/ContactDetails";
 import { AddContactModal } from "../Component/userDashboardComponent/AddContactModal";
 
+
 export const UserDashboard = () => {
     const [user, setUser] = useState(null);
 
@@ -15,6 +16,10 @@ export const UserDashboard = () => {
 
     // Temporary contact data
     const [contacts,setContacts] = useState([]);
+
+  
+
+   
 
 
 const handleContactDeleted = (id) => {
@@ -76,6 +81,31 @@ const handleContactDeleted = (id) => {
         };
         getUserData();
     }, []);
+
+
+    const handleFavouriteUpdate=( updatedContact) => {
+        setContacts((prevContacts) =>
+            prevContacts.map((contact) =>
+                contact.id === updatedContact.id ? updatedContact : contact
+            )
+        );
+        setSelectedContact(updatedContact);
+    };
+
+    //for updating contact after editing
+    const handleContactUpdated = (updatedContact) => {
+
+    setContacts(prevContacts =>
+        prevContacts.map(contact =>
+            contact.id === updatedContact.id
+                ? updatedContact
+                : contact
+        )
+    );
+
+    setSelectedContact(updatedContact);
+};
+
     return (
         <>
 
@@ -89,6 +119,9 @@ const handleContactDeleted = (id) => {
                     selectedContact={selectedContact}
                     setSelectedContact={setSelectedContact}
                     setShowAddContact={setShowAddContact}
+                    onFavouriteUpdate={handleFavouriteUpdate}
+                   
+                    
                 />
 
 
@@ -97,6 +130,8 @@ const handleContactDeleted = (id) => {
                     contact={selectedContact}
                      selectedContact={selectedContact}
                     onContactDeleted={handleContactDeleted}
+                    onFavouriteUpdate={handleFavouriteUpdate}
+                    onContactUpdated={handleContactUpdated}
                 />
 
 
@@ -109,6 +144,8 @@ const handleContactDeleted = (id) => {
                     onContactAdded={handleContactAdded}
                 />
             )}
+
+           
 
 
         </>

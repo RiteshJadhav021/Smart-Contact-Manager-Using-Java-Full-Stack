@@ -46,4 +46,28 @@ public class ContactController {
 
         return "Contact deleted successfully";
     }
+
+    @PutMapping("/contacts/{id}/favourite")
+        public Contacts toggleFavourite(@PathVariable int id,Authentication authentication ){
+        String email=authentication.getName();
+        User user=userService.getUserByEmail(email);
+        return contactService.toggleFavourite(id,user);
+    }
+
+    @PutMapping("/contacts/{id}")
+    public Contacts updateContact(
+            @PathVariable int id,
+            @RequestBody Contacts updatedContact,
+            Authentication authentication) {
+
+        String email = authentication.getName();
+
+        User user = userService.getUserByEmail(email);
+
+        return contactService.updateContact(
+                id,
+                updatedContact,
+                user
+        );
+    }
 }

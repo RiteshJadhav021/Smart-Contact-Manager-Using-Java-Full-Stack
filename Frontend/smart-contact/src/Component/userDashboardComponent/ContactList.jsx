@@ -1,6 +1,16 @@
 import { FiSearch, FiPlus, FiStar } from "react-icons/fi";
+import { useState } from "react";
+import { FaStar } from "react-icons/fa6";
 
-export const ContactList = ({ contacts, selectedContact, setSelectedContact, setShowAddContact }) => {
+export const ContactList = ({ contacts, selectedContact, setSelectedContact, setShowAddContact, }) => {
+
+      const[search,setSearch]=useState("");
+
+    const filteredContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(search.toLowerCase()) ||
+    contact.email.toLowerCase().includes(search.toLowerCase())
+     );
+     console.log("Filtered Contacts:", filteredContacts);
 
     return (
         <div className="w-[400px] border-r border-gray-200 min-h-[calc(100vh-73px)]">
@@ -19,6 +29,8 @@ export const ContactList = ({ contacts, selectedContact, setSelectedContact, set
                         type="text"
                         placeholder="Search contacts..."
                         className="w-full rounded-xl border border-gray-200 px-12 py-4 outline-none focus:border-[#483AEA]"
+                        value={search}
+                        onChange={(e)=>setSearch(e.target.value)}
                     />
 
                 </div>
@@ -41,7 +53,7 @@ export const ContactList = ({ contacts, selectedContact, setSelectedContact, set
             {/* Contact list */}
             <div>
 
-                {contacts.map((contact) => (
+                {filteredContacts.map((contact) => (
 
                     <div
                         key={contact.id}
@@ -53,6 +65,7 @@ export const ContactList = ({ contacts, selectedContact, setSelectedContact, set
                                 : "hover:bg-gray-50"
                         }`}
                     >
+                       
 
                         {/* Avatar */}
                         <div className="w-11 h-11 rounded-full bg-[#E0F2FE] flex items-center justify-center text-[#0369A1] font-semibold">
@@ -89,12 +102,15 @@ export const ContactList = ({ contacts, selectedContact, setSelectedContact, set
                             </p>
 
                         </div>
-
+                         {contact.favourite && <FaStar className="text-yellow-500 fill-yellow-500" />}
 
                         {/* Category */}
                         <span className="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded-full">
                             {contact.tag}
                         </span>
+
+                       
+                        
 
                     </div>
 
