@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const Sidebar = () => {
+export const Sidebar = ({ allCount, workCount, clientCount, partnerCount, friendCount, favouriteCount, selectedTag, setSelectedTag }) => {
 
     const [selected, setSelected] = useState("All");
 
@@ -13,71 +13,80 @@ export const Sidebar = () => {
 
             {/* All */}
             <div
-                onClick={() => setSelected("All")}
-                className={`px-4 py-3 flex justify-between rounded-xl cursor-pointer ${
-                    selected === "All"
+                onClick={() => setSelectedTag("All")}
+                className={`px-4 py-3 flex justify-between rounded-xl cursor-pointer ${selectedTag === "All"
                         ? "bg-[#483AEA] text-white"
                         : "text-gray-600 hover:bg-gray-100"
-                }`}
+                    }`}
             >
                 <span>All</span>
-                <span>8</span>
+                <span>{allCount}</span>
             </div>
 
             {/* Work */}
             <div
-                onClick={() => setSelected("Work")}
-                className={`px-4 py-3 flex justify-between rounded-xl cursor-pointer ${
-                    selected === "Work"
+                onClick={() => setSelectedTag("Work")}
+                className={`px-4 py-3 flex justify-between rounded-xl cursor-pointer ${selectedTag === "Work"
                         ? "bg-[#483AEA] text-white"
                         : "text-gray-600 hover:bg-gray-100"
-                }`}
+                    }`}
             >
                 <span>Work</span>
-                <span>3</span>
+                <span>{workCount}</span>
             </div>
 
             {/* Client */}
             <div
-                onClick={() => setSelected("Client")}
-                className={`px-4 py-3 flex justify-between rounded-xl cursor-pointer ${
-                    selected === "Client"
+                onClick={() => setSelectedTag("Client")}
+                className={`px-4 py-3 flex justify-between rounded-xl cursor-pointer ${selectedTag === "Client"
                         ? "bg-[#483AEA] text-white"
                         : "text-gray-600 hover:bg-gray-100"
-                }`}
+                    }`}
             >
                 <span>Client</span>
-                <span>2</span>
+                <span>{clientCount}</span>
             </div>
 
             {/* Partner */}
             <div
-                onClick={() => setSelected("Partner")}
-                className={`px-4 py-3 flex justify-between rounded-xl cursor-pointer ${
-                    selected === "Partner"
+                onClick={() => setSelectedTag("Partner")}
+                className={`px-4 py-3 flex justify-between rounded-xl cursor-pointer ${selectedTag === "Partner"
                         ? "bg-[#483AEA] text-white"
                         : "text-gray-600 hover:bg-gray-100"
-                }`}
+                    }`}
             >
                 <span>Partner</span>
-                <span>2</span>
+                <span>{partnerCount}</span>
             </div>
 
             {/* Friend */}
             <div
-                onClick={() => setSelected("Friend")}
-                className={`px-4 py-3 flex justify-between rounded-xl cursor-pointer ${
-                    selected === "Friend"
+                onClick={() => setSelectedTag("Friend")}
+                className={`px-4 py-3 flex justify-between rounded-xl cursor-pointer ${selectedTag === "Friend"
                         ? "bg-[#483AEA] text-white"
                         : "text-gray-600 hover:bg-gray-100"
-                }`}
+                    }`}
             >
                 <span>Friend</span>
-                <span>1</span>
+                <span>{friendCount}</span>
             </div>
-               <div className="absolute bottom-0 left-0 w-[280px] border-t border-gray-200 px-5 py-5">
+
+            {/* Favourite */}
+            <div
+                onClick={() => setSelectedTag("Favourite")}
+                className={`px-4 py-3 flex justify-between rounded-xl cursor-pointer ${selectedTag === "Favourite"
+                        ? "bg-[#483AEA] text-white"
+                        : "text-gray-600 hover:bg-gray-100"
+                    }`}
+            >
+                <span>Favourite</span>
+                <span>{favouriteCount}</span>
+            </div>
+
+
+            <div className="absolute bottom-0 left-0 w-[280px] border-t border-gray-200 px-5 py-5">
                 <p className="text-sm text-gray-600">
-                    8 total contacts
+                    {allCount} total contacts
                 </p>
             </div>
 

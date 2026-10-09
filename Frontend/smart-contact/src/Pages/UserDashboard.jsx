@@ -15,31 +15,59 @@ export const UserDashboard = () => {
     const [showAddContact, setShowAddContact] = useState(false);
 
     // Temporary contact data
-    const [contacts,setContacts] = useState([]);
+    const [contacts, setContacts] = useState([]);
 
-  
+    const [selectedTag, setSelectedTag] = useState("All");
 
-   
+    const filteredContacts = contacts.filter((contact) => {
+    return selectedTag === "All" || contact.tag === selectedTag || (selectedTag === "Favourite" && contact.favourite);
+});
+
+    const allCount = contacts.length;
+
+    const workCount = contacts.filter(
+        contact => contact.tag === "Work"
+    ).length;
+
+    const favouriteCount= contacts.filter(
+        contact => contact.favourite === true
+    ).length;
+
+    const clientCount = contacts.filter(
+        contact => contact.tag === "Client"
+    ).length;
+
+    const partnerCount = contacts.filter(
+        contact => contact.tag === "Partner"
+    ).length;
+
+    const friendCount = contacts.filter(
+        contact => contact.tag === "Friend"
+    ).length;
 
 
-const handleContactDeleted = (id) => {
 
-    setContacts((prevContacts) =>
-        prevContacts.filter((contact) => contact.id !== id)
-    );
 
-    setSelectedContact(null);
-};
 
-    const handleContactAdded=(newContact)=>{
-        setContacts((prev)=>[
+
+    const handleContactDeleted = (id) => {
+
+        setContacts((prevContacts) =>
+            prevContacts.filter((contact) => contact.id !== id)
+        );
+
+        setSelectedContact(null);
+    };
+
+    const handleContactAdded = (newContact) => {
+        setContacts((prev) => [
             ...prev,
             newContact
         ]);
         setSelectedContact(newContact);
     }
 
-        useEffect(() => {
+    useEffect(() => {
         const getContacts = async () => {
             try {
                 const token = localStorage.getItem("token");
@@ -57,7 +85,7 @@ const handleContactDeleted = (id) => {
                 console.log(error);
             }
         };
-       getContacts();
+        getContacts();
     }, []);
 
 
@@ -83,7 +111,7 @@ const handleContactDeleted = (id) => {
     }, []);
 
 
-    const handleFavouriteUpdate=( updatedContact) => {
+    const handleFavouriteUpdate = (updatedContact) => {
         setContacts((prevContacts) =>
             prevContacts.map((contact) =>
                 contact.id === updatedContact.id ? updatedContact : contact
@@ -95,16 +123,16 @@ const handleContactDeleted = (id) => {
     //for updating contact after editing
     const handleContactUpdated = (updatedContact) => {
 
-    setContacts(prevContacts =>
-        prevContacts.map(contact =>
-            contact.id === updatedContact.id
-                ? updatedContact
-                : contact
-        )
-    );
+        setContacts(prevContacts =>
+            prevContacts.map(contact =>
+                contact.id === updatedContact.id
+                    ? updatedContact
+                    : contact
+            )
+        );
 
-    setSelectedContact(updatedContact);
-};
+        setSelectedContact(updatedContact);
+    };
 
     return (
         <>
@@ -113,22 +141,32 @@ const handleContactDeleted = (id) => {
             <UserDashboardNavbar user={user} />
 
             <div className="flex min-h-[calc(100vh-73px)]">
-                <Sidebar />
+                <Sidebar
+                allCount={allCount}
+                workCount={workCount}
+                clientCount={clientCount}
+                partnerCount={partnerCount}
+                friendCount={friendCount}
+                favouriteCount={favouriteCount}
+                selectedTag={selectedTag}
+                setSelectedTag={setSelectedTag}
+                />
                 <ContactList
-                    contacts={contacts}
+                    contacts={filteredContacts}
                     selectedContact={selectedContact}
                     setSelectedContact={setSelectedContact}
                     setShowAddContact={setShowAddContact}
                     onFavouriteUpdate={handleFavouriteUpdate}
-                   
                     
+
+
                 />
 
 
                 {/* Contact details */}
                 <ContactDetails
                     contact={selectedContact}
-                     selectedContact={selectedContact}
+                    selectedContact={selectedContact}
                     onContactDeleted={handleContactDeleted}
                     onFavouriteUpdate={handleFavouriteUpdate}
                     onContactUpdated={handleContactUpdated}
@@ -145,7 +183,7 @@ const handleContactDeleted = (id) => {
                 />
             )}
 
-           
+
 
 
         </>

@@ -7,16 +7,18 @@ export const ContactList = ({ contacts, selectedContact, setSelectedContact, set
       const[search,setSearch]=useState("");
 
     const filteredContacts = contacts.filter((contact) =>
+        
     contact.name.toLowerCase().includes(search.toLowerCase()) ||
     contact.email.toLowerCase().includes(search.toLowerCase())
      );
      console.log("Filtered Contacts:", filteredContacts);
 
+
     return (
-        <div className="w-[400px] border-r border-gray-200 min-h-[calc(100vh-73px)]">
+        <div className="w-[400px] border-r border-gray-200 h-[calc(100vh-73px)] flex flex-col min-h-0 flex-shrink-0">
 
             {/* Search + Add */}
-            <div className="p-5 border-b border-gray-200">
+            <div className="p-5 border-b border-gray-200 shrink-0">
 
                 {/* Search */}
                 <div className="relative">
@@ -51,9 +53,15 @@ export const ContactList = ({ contacts, selectedContact, setSelectedContact, set
 
 
             {/* Contact list */}
-            <div>
+            <div className="flex-1 min-h-0 overflow-y-auto [scrollbar-width:thin] [scrollbar-color:#e5e7eb_transparent]">
+                {filteredContacts.length === 0 ? (
+                    <p className="text-center text-gray-500 mt-10">
+                        No contacts found.
+                    </p>
+                ) : (
+                    
 
-                {filteredContacts.map((contact) => (
+                filteredContacts.map((contact) => (
 
                     <div
                         key={contact.id}
@@ -114,7 +122,7 @@ export const ContactList = ({ contacts, selectedContact, setSelectedContact, set
 
                     </div>
 
-                ))}
+                )))}
 
             </div>
 
