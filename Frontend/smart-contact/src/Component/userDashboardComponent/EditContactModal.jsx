@@ -34,6 +34,49 @@ export const EditContactModal = ({
 
         e.preventDefault();
 
+         // Name validation
+    if (!formData.name.trim()) {
+        toast.error("Please enter contact name!");
+        return;
+    }
+
+    if (formData.name.trim().length < 3) {
+        toast.error("Name must contain at least 3 characters!");
+        return;
+    }
+
+    // Email validation
+    if (!formData.email.trim()) {
+        toast.error("Please enter email address!");
+        return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(formData.email.trim())) {
+        toast.error("Please enter a valid email address!");
+        return;
+    }
+
+    // Phone validation (10-digit Indian mobile number)
+    if (!formData.phone.trim()) {
+        toast.error("Please enter phone number!");
+        return;
+    }
+
+    const phoneRegex = /^[6-9]\d{9}$/;
+
+    if (!phoneRegex.test(formData.phone.trim())) {
+        toast.error("Please enter a valid 10-digit mobile number!");
+        return;
+    }
+
+    // Tag validation
+    if (!formData.tag) {
+        toast.error("Please select a contact tag!");
+        return;
+    }
+
         try {
 
             const token = localStorage.getItem("token");
@@ -81,9 +124,9 @@ export const EditContactModal = ({
                            <button
                                type="button"
                                onClick={onClose}
-                               className="text-gray-500 hover:text-gray-900"
+                               className="text-gray-500 hover:text-gray-900 cursor-pointer"
                            >
-                               <IoClose className="w-7 h-7" />
+                               <IoClose className="w-7 h-7 cursor-pointer" />
                            </button>
        
                        </div>
@@ -237,7 +280,7 @@ export const EditContactModal = ({
                                    <button
                                        type="button"
                                        onClick={onClose}
-                                       className="rounded-2xl border border-gray-200 py-4 font-medium text-gray-800 hover:bg-gray-50"
+                                       className="rounded-2xl border border-gray-200 py-4 font-medium text-gray-800 hover:bg-gray-50 cursor-pointer"
                                    >
                                        Cancel
                                    </button>

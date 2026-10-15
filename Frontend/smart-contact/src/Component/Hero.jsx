@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export const Hero = () => {
     return (
         <>
-            <div className="hero flex justify-evenly  p-4">
+            <div className="hero flex justify-evenly  p-4" id="hero">
                 <div className="hero_text max-w-xl py-10">
                     <h1 className="text-6xl font-bold text-[#111827] font-[Inter] ">Your Contacts,  <span className="text-[#483AEA] text-7xl">Beautifully   </span> Organized..</h1>
                     <p className="text-[#6B7280] text-lg mt-4 font-sans ">Personify is a contact management app that helps you organize your contacts and keep them up to date.</p>

@@ -184,19 +184,19 @@ export const ContactDetails = ({ contact, selectedContact,
                 {/* Action buttons */}
                 <div className="flex gap-3">
 
-                    <button className="w-11 h-11 border border-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-50" onClick={handleFavourite}>
+                    <button className="w-11 h-11 border border-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-50 cursor-pointer" onClick={handleFavourite}>
 
                         {selectedContact.favourite ? <FaStar className="text-yellow-500 fill-yellow-500" /> : <FiStar />}
 
                     </button>
 
-                    <button className="w-11 h-11 border border-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-50" onClick={() => setShowEditModal(true)}>
+                    <button className="w-11 h-11 border border-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-50 cursor-pointer" onClick={() => setShowEditModal(true)}>
 
                         <FiEdit />
 
                     </button>
 
-                    <button className="w-11 h-11 border border-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-50" onClick={() => handleDeleteContact(selectedContact.id)}>
+                    <button className="w-11 h-11 border border-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-50 cursor-pointer" onClick={() => handleDeleteContact(selectedContact.id)}>
 
                         <GoTrash />
 
